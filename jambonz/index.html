@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="../img/favicon.ico">
+
+    
+    <title>jambonz Call Control JSON - jambonz</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="..">jambonz</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">jambonz Call Control JSON</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../rest/">REST API</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../data/">Data architecture</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../register-hook/">Authenticating sip clients</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="..">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../rest/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#overview">Overview</a></li>
+            <li class="second-level"><a href="#basic-json-message-structure">Basic JSON message structure</a></li>
+                
+            <li class="second-level"><a href="#http-connection-details">HTTP connection details</a></li>
+                
+            <li class="second-level"><a href="#initial-state-of-incoming-calls">Initial state of incoming calls</a></li>
+                
+            <li class="second-level"><a href="#speech-integration">Speech integration</a></li>
+                
+            <li class="second-level"><a href="#webhooks">Webhooks</a></li>
+                
+        <li class="first-level "><a href="#supported-verbs">Supported Verbs</a></li>
+            <li class="second-level"><a href="#conference">conference</a></li>
+                
+            <li class="second-level"><a href="#dequeue">dequeue</a></li>
+                
+            <li class="second-level"><a href="#dial">dial</a></li>
+                
+                <li class="third-level"><a href="#target-types">target types</a></li>
+            <li class="second-level"><a href="#enqueue">enqueue</a></li>
+                
+            <li class="second-level"><a href="#gather">gather</a></li>
+                
+            <li class="second-level"><a href="#hangup">hangup</a></li>
+                
+            <li class="second-level"><a href="#leave">leave</a></li>
+                
+            <li class="second-level"><a href="#listen">listen</a></li>
+                
+            <li class="second-level"><a href="#pause">pause</a></li>
+                
+            <li class="second-level"><a href="#play">play</a></li>
+                
+            <li class="second-level"><a href="#redirect">redirect</a></li>
+                
+            <li class="second-level"><a href="#say">say</a></li>
+                
+            <li class="second-level"><a href="#sipdecline">sip:decline</a></li>
+                
+            <li class="second-level"><a href="#tag">tag</a></li>
+                
+            <li class="second-level"><a href="#transcribe">transcribe</a></li>
+                
+        <li class="first-level "><a href="#example-messages">Example messages</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="overview">Overview</h1>
+<p>jambonz is a specification for issuing call control commands via JSON payloads over HTTP connections.  These messages are sent from your application in response to web callbacks from a jambonz call control server, and they provide jambonz with your instructions on how to handle a call.  </p>
+<p>When an incoming call is received by the platform, jambonz makes an HTTP request to the URL endpoint that is configured for that called number. Outbound calls that are initiated by the REST API are controlled in a similar way -- when invoking the REST API to launch a call, you provide a web callback url and in your response to the subsequent HTTP GET or POST to that url you then return a JSON payload describing the application that should govern the outbound call.</p>
+<h2 id="basic-json-message-structure">Basic JSON message structure</h2>
+<p>The JSON payload (aka the "application") that you provide in response to a callback must be an array of objects, with each object describing a task that the platform shall perform.  These tasks are executed sequentially in the order they appear in the array.  Each task is identified by a verb (e.g. "dial", "gather", "hangup" etc) with associated detail and these verbs are described in more detail below.</p>
+<p>If the caller hangs up during the execution of an application for that call, the current task is allowed to complete and any remaining tasks in the application are ignored.</p>
+<p>Through additional callbacks that may be invoked during the execution of an application (typically as a result of those verbs which have an "action" property callback), the current application may be replaced with a new JSON application document.  In such a case, the new document begins executing, and any remaining tasks in the original document are discarded.</p>
+<p>Each task object in the JSON array must include a "verb" property that describes the action to take.  Any additional information that the task needs to operate are provided as properties as well, e.g.:</p>
+<pre><code>{
+  &quot;verb&quot;: &quot;say&quot;,
+  &quot;text&quot;: &quot;Hi there!  Please leave a message at the tone and we will get back to you shortly.&quot;,
+  &quot;synthesizer&quot;: {
+    &quot;vendor&quot;: &quot;google&quot;,
+    &quot;language&quot;: &quot;en-US&quot;,
+    &quot;gender&quot;: &quot;FEMALE&quot;
+  }
+}
+</code></pre>
+
+<p>Some verbs allow other verbs to be nested; e.g. "gather" can have a nested "say" command in order to play a prompt and collect a response in one command:</p>
+<pre><code>{
+  &quot;verb&quot;: &quot;gather&quot;,
+  &quot;actionHook&quot;: &quot;/gatherCardNumber&quot;,
+  &quot;input&quot;: [&quot;speech&quot;, &quot;dtmf&quot;],
+  &quot;timeout&quot;: 16,
+  &quot;numDigits&quot;: 6,
+  &quot;recognizer&quot;: {
+    &quot;vendor&quot;: &quot;google&quot;,
+    &quot;language&quot;: &quot;en-US&quot;
+  },
+  &quot;say&quot;: {
+    &quot;text&quot;: &quot;Please say or enter your six digit card number now&quot;,
+    &quot;synthesizer&quot;: {
+      &quot;vendor&quot;: &quot;google&quot;,
+      &quot;language&quot;: &quot;en-US&quot;,
+      &quot;gender&quot;: &quot;FEMALE&quot;
+    }
+  }
+}
+</code></pre>
+
+<p>Altogether then, a simple example application which provides the basics of a voicemail application with transcription would look like this:</p>
+<pre><code>[
+  {
+    &quot;verb&quot;: &quot;say&quot;,
+    &quot;text&quot;: &quot;Hi there!  Please leave a message at the tone and we will get back to you shortly.  Thanks, and have a great day!&quot;
+  },
+  {
+    &quot;verb&quot;: &quot;listen&quot;,
+    &quot;actionHook&quot;: &quot;http://example.com/voicemail&quot;,
+    &quot;url&quot;: &quot;http://ws.example.com&quot;,
+    &quot;finishOnKey&quot;: &quot;#&quot;,
+    &quot;metadata&quot;: {
+      &quot;topic&quot;: &quot;voicemail&quot;
+    },
+    &quot;mixType&quot;: &quot;mono&quot;,
+    &quot;playBeep&quot;: true,
+    &quot;timeout&quot;: 20,
+    &quot;transcribe&quot;: {
+      &quot;transcriptionHook&quot;: &quot;/transcription&quot;
+    }
+  },
+  {
+    &quot;verb&quot;: &quot;say&quot;,
+    &quot;text&quot;: &quot;Thanks for your message.  We'll get back to you&quot;
+  }
+]
+</code></pre>
+
+<p>Hey, did you see what we did there?  It's a voicemail application, but where is the recording url?  How do you retrieve the recording after the call?</p>
+<p>There is none, and you don't.</p>
+<p>Let's rethink this: </p>
+<p>Instead of making a recording -- which exposes your customer's PII since we now have to store sensitive data at rest in the platform -- how's about we instead send you a real-time audio stream over a secure websocket connection while the call is proceeding.  Annotate it with any metadata you need for tracking on your end, and we'll send that along as well.</p>
+<p>Thus, you get the audio in real-time and we don't ever store your customer's sensitive data at rest.  Bam. Done.</p>
+<h2 id="http-connection-details">HTTP connection details</h2>
+<p>Each HTTP request that jambonz makes to one of your callbacks will include (at least) the following information either as query arguments (in a GET request) or in the body of the response as a JSON payload (in a POST request):</p>
+<ul>
+<li>callSid: a unique identifier for the call, in a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">uuid</a> format.</li>
+<li>applicationSid: a unique identifier for the jambonz application controlling this call</li>
+<li>accountSid: a unique identifier for the jambonz account associated with the application</li>
+<li>direction: the direction of the call, either 'inbound' or 'outbound'</li>
+<li>from: the calling party number</li>
+<li>to: the called party number</li>
+<li>callerId: the caller name, if known</li>
+<li>callStatus: current status of the call, see table below</li>
+<li>sipStatus: the most recent sip status code received or generated for the call</li>
+</ul>
+<p>Additionally, the request <strong>MAY</strong> include</p>
+<ul>
+<li>parentCallSid: the callSid of a parent call to this call, if this call is a child call</li>
+</ul>
+<p>And the initial webhook for a new incoming call will have:</p>
+<ul>
+<li>originatingSipTrunkName: name of the SIP trunk that originated the call to the platform</li>
+<li>originatingSipIp: the ip address and port of the sip gateway that originated the call</li>
+</ul>
+<p>Finally, if you specify to use a POST method for the initial webhook for an incoming call, the JSON payload in that POST will also contain the entire incoming SIP INVITE request details in a 'sip' property (this is not provided if a GET request is used).  This can be useful if you need a detailed look at all of the SIP headers or the Session Description Protocol being offered.</p>
+<p>Note also that the information that jambonz sends you with each HTTP request can be augmented by your application by using the <a href="#tag">tag</a> verb.</p>
+<p>You may optionally use <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Authentication</a> to protect your endpoints.</p>
+<table>
+<thead>
+<tr>
+<th>call status value</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>trying</td>
+<td>a new incoming call has arrived or an outbound call has just been sent</td>
+</tr>
+<tr>
+<td>ringing</td>
+<td>a 180 Ringing response has been sent or received</td>
+</tr>
+<tr>
+<td>early-media</td>
+<td>an early media connection has been established prior to answering the call (183 Session Progress)</td>
+</tr>
+<tr>
+<td>in-progress</td>
+<td>call has been answered</td>
+</tr>
+<tr>
+<td>completed</td>
+<td>an answered call has ended</td>
+</tr>
+<tr>
+<td>failed</td>
+<td>a call attempt failed</td>
+</tr>
+<tr>
+<td>busy</td>
+<td>a call attempt failed because the called party returned a busy status</td>
+</tr>
+<tr>
+<td>no-answer</td>
+<td>a call attempt failed because it was not answered in time</td>
+</tr>
+</tbody>
+</table>
+<p>Refer to the <a href="#example-messages">Example messages</a> section to see further details.</p>
+<h2 id="initial-state-of-incoming-calls">Initial state of incoming calls</h2>
+<p>When the jambonz platform receives a new incoming call, it responds 100 Trying to the INVITE but does not automatically answer the call.  It is up to your application to decide how to finally respond to the INVITE.  You have some choices here.</p>
+<p>Your application can:</p>
+<ul>
+<li>answer the call, which connects the call to a media endpoint that can perform IVR functions on the call,</li>
+<li>outdial a new call, and bridge the two calls together (i.e use the dial verb), </li>
+<li>reject the call, with a specified SIP status code and reason,</li>
+<li>redirect the call (i.e. generating a SIP 302 response back to the caller), or</li>
+<li>establish an early media connection and play audio to the caller without answering the call.</li>
+</ul>
+<p>The last is interesting and worthy of further comment.  The intent is to let you play audio to callers without necessarily answering the call.  You signal this by including an "earlyMedia" property with a value of true in the application.  When receiving this, the jambonz core will create an early media connection (183 Session Progress) if possible, as shown in the example below.</p>
+<blockquote>
+<p>Note: an early media connection will not be possible if the call has already been answered by an earlier verb in the application.  In such a scenario, the earlyMedia property is ignored.</p>
+</blockquote>
+<pre><code>[
+  {
+    &quot;verb&quot;: &quot;say&quot;,
+    &quot;earlyMedia&quot;: true,
+    &quot;text&quot;: &quot;Please call back later, we are currently at lunch&quot;
+    &quot;synthesizer&quot;: {
+      &quot;vendor&quot;: &quot;aws&quot;,
+      &quot;language&quot;: &quot;en-US&quot;,
+      &quot;voice&quot;: &quot;Amy&quot;
+    },
+    {
+      &quot;verb&quot;: &quot;sip:decline&quot;,
+      &quot;status&quot;: 480,
+      &quot;headers&quot;: {
+        &quot;Retry-After&quot;: 1800
+      }
+    }
+  }
+]
+</code></pre>
+
+<p>The say, play, gather, listen, and transcribe verbs all support the "earlyMedia" property.  </p>
+<p>The dial verb supports a similar feature of not answering the inbound call unless/until the dialed call is answered via the "answerOnBridge" property.</p>
+<h2 id="speech-integration">Speech integration</h2>
+<p>The platform makes use of text-to-speech as well as real-time speech recognition.  Both google and AWS/Polly are supported for text to speech.  Currently only google is supported for speech to text.</p>
+<p>Synthesized audio is cached for up to 24 hours, so that if the same {text, language, voice} combination is requested more than once in that period it will be served from cache, reducing speech synthesis costs.</p>
+<p>A JSON service key file containing GCP credentials for cloud speech services must be downloaded and installed on the jambonz feature servers to enable tts and speech recognition for google.  For AWS/Polly, the environment variables AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_REGION must be provided in the server environments where the <a href="https://github.com/jambonz/jambonz-feature-server">jambonz-feature-server</a> application is running.</p>
+<p>As part of the definition of an application, you can set defaults for the language and voice to use for speech synthesis as well as the language to use for speech recognition.  These can then be overridden by verbs in the application, by using the 'synthesizer' and 'recognizer' properties./</p>
+<h2 id="webhooks">Webhooks</h2>
+<p>Many of the verbs specify a webhook that will be called when the verb completes, or has some information to deliver to your application.  These verbs contain a property that allow you to configure that webhook.  By convention, the property name will always end in "Hook"; e.g "actionHook", "dtmfHook", and so on.</p>
+<p>You can either specify the webhook as a simple string specifying a url:</p>
+<pre><code>&quot;actionHook&quot;: &quot;https://my.appserver.com/results&quot;
+</code></pre>
+
+<p>or a relative url</p>
+<pre><code>&quot;actionHook&quot;: &quot;/results&quot;
+</code></pre>
+
+<p>In the latter case, the base url of the application will be applied.</p>
+<p>Alternatively, you can provide an object containing a url (required) and optional method and basic authentication parameters, e.g.:</p>
+<pre><code>&quot;actionHook&quot;: {
+  &quot;url&quot;: &quot;https://my.appserver.com/results&quot;,
+  &quot;method&quot;: &quot;GET&quot;,
+  &quot;username&quot;: &quot;foo&quot;,
+  &quot;password&quot;: &quot;bar&quot;
+}
+</code></pre>
+
+<p>In the verb descriptions below, whenever we indicate a property is a webhook we are referring to this syntax.</p>
+<h1 id="supported-verbs">Supported Verbs</h1>
+<p>Each of the supported verbs are described below.</p>
+<h2 id="conference">conference</h2>
+<p>The <code>conference</code> verb places a call into a conference.</p>
+<pre><code class="json">  {
+    &quot;verb&quot;: &quot;conference&quot;,
+    &quot;name&quot;: &quot;test&quot;,
+    &quot;beep&quot;: true,
+    &quot;startConferenceOnEnter&quot;: false,
+    &quot;waitHook&quot;: &quot;/confWait&quot;,
+    &quot;enterHook&quot;: &quot;/confEnter&quot;   
+  },
+</code></pre>
+
+<p>You can use the following attributes in the <code>conference</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>actionHook</td>
+<td>A webhook to call when the conference ends</td>
+<td>no</td>
+</tr>
+<tr>
+<td>beep</td>
+<td>if true, play a beep tone to the conference when caller enters (default: false)</td>
+<td>no</td>
+</tr>
+<tr>
+<td>endConferenceOnExit</td>
+<td>if true, end the conference when this caller hangs up (default: false)</td>
+<td>no</td>
+</tr>
+<tr>
+<td>enterHook</td>
+<td>A webhook to retrieve something to play or say to the caller just before they are put into a conference after waiting for it to start</td>
+<td>no</td>
+</tr>
+<tr>
+<td>maxParticipants</td>
+<td>maximum number of participants that will be allowed in the conference</td>
+<td>no</td>
+</tr>
+<tr>
+<td>name</td>
+<td>name of the conference</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>startConferenceOnEnter</td>
+<td>if true, start the conference only when this caller enters (default: true)</td>
+<td>no</td>
+</tr>
+<tr>
+<td>statusHook</td>
+<td>A webhook to call with conference status events</td>
+<td>no</td>
+</tr>
+<tr>
+<td>statusEvents</td>
+<td>An array of events for which the statusHook should be called to. See below for details.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>waitHook</td>
+<td>A webhook to retrieve commands to play or say while the caller is waiting for the conference to start</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p>Note: A conference bridge belongs to an Account (the Account that is associated with the Application that created the conference), and only calls generated from Applications under that Account can join that conference.  The conference <code>name</code> property should be unique within an Account for different conference bridges; however, the same name can be used by different Accounts and each will refer to different conference bridges on the media servers.</p>
+<p>Conference events:</p>
+<ul>
+<li>'start': the conference has started</li>
+<li>'end': the conference has ended</li>
+<li>'join': a participant has joined the conference</li>
+<li>'leave': a participant has left the conference</li>
+<li>'start-talking': a participant started speaking</li>
+<li>'end-talking': a participant stopped talking</li>
+</ul>
+<p>Conference status webhooks will contain the following additional parameters:</p>
+<ul>
+<li>conferenceSid: a unique identifier for the conference</li>
+<li>friendlyName: the name of the conference as specified in the application</li>
+<li>event: the conference event being reported (e.g. "join")</li>
+<li>time: the time of the event in ISO format (e.g. "2020-04-27T13:44:17.336Z")</li>
+<li>members: the current number of members in the conference</li>
+<li>duration: the current length of the conference in seconds</li>
+</ul>
+<h2 id="dequeue">dequeue</h2>
+<p>The <code>dequeue</code> verb removes the a call from the front of a specified queue and bridges that call to the current caller.</p>
+<pre><code>{
+  &quot;verb&quot;: &quot;dequeue&quot;,
+  &quot;name&quot;: &quot;support&quot;,
+  &quot;beep&quot;: true,
+  &quot;timeout&quot;: 60
+}
+</code></pre>
+
+<p>You can use the following options in the <code>dequeue</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>name of the queue</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>actionHook</td>
+<td>A webhook invoke when call ends. If no webhook is provided, execution will continue with the next verb in the current application. <br/>See below for specified request parameters.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>beep</td>
+<td>if true, play a beep tone to this caller only just prior to connecting the queued call; this provides an auditory cue that the call is now connected</td>
+<td>no</td>
+</tr>
+<tr>
+<td>confirmHook</td>
+<td>A webhook for an application to run on the callee's end before the call is bridged.  This will allow the application to play an informative message to a caller as they leave the queue (e.g. "your call may be recorded")</td>
+<td>no</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>number of seconds to wait on an empty queue before returning (default: wait forever)</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p>The <em>actionHook</em> webhook will contain the following additional parameters:</p>
+<ul>
+<li><code>dequeueResult</code>: the completion reason:<ul>
+<li>'hangup' - the bridged call was abandoned while listening to the confirmHook message</li>
+<li>'complete' - the call was successfully bridged and ended with a caller hangup</li>
+<li>'timeout' - no call appeared in the named queue during the timeout interval</li>
+<li>'error' - a system error of some kind occurred</li>
+</ul>
+</li>
+</ul>
+<h2 id="dial">dial</h2>
+<p>The <code>dial</code> verb is used to create a new call by dialing out to a number, a registered sip user, or sip endpoint.  </p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;dial&quot;,
+  &quot;actionHook&quot;: &quot;/outdial&quot;,
+  &quot;callerId&quot;: &quot;+16173331212&quot;,
+  &quot;answerOnBridge&quot;: true,
+  &quot;dtmfCapture&quot;: [&quot;*2&quot;, &quot;*3&quot;],
+  &quot;dtmfHook&quot;: {
+    &quot;url&quot;: &quot;/dtmf&quot;,
+    &quot;method&quot;: &quot;GET&quot;
+  },
+  &quot;target&quot;: [
+    {
+      &quot;type&quot;: &quot;phone&quot;,
+      &quot;number&quot;: &quot;+15083084809&quot;
+    },
+    {
+      &quot;type&quot;: &quot;sip&quot;,
+      &quot;sipUri&quot;: &quot;sip:1617333456@sip.trunk1.com&quot;,
+      &quot;auth&quot;: {
+        &quot;user&quot;: &quot;foo&quot;,
+        &quot;password&quot;: &quot;bar&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;user&quot;,
+      &quot;name&quot;: &quot;spike@sip.example.com&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p>As the example above illustrates, when you execute the 'dial' command you are making one or more outbound call attempts in an effort to create one new call, which can be bridged to a parent call. The <code>target</code> property specifies an array of call destinations (aka <a href="#target-types">endpoints</a>) that will be attempted simultaneously.  </p>
+<p>If multiple endpoints are specified in the <code>target</code> array, all targets are outdialed at the same time (e.g., "simring", or "blast outdial" as some folks call it) and the call will be connected to the first endpoint that answers the call and, optionally, completes a call screening application as specified in the <code>url</code> property.</p>
+<p>There are several types of endpoints:</p>
+<ul>
+<li>a telephone phone number,</li>
+<li>a sip endpoint, identified by a sip uri (and possibly authentication parameters),</li>
+<li>a conference, </li>
+<li>a webrtc or sip client that has registered directly with your application, </li>
+<li>Microsoft Teams user, or</li>
+<li>a <a href="#park">parking slot</a></li>
+</ul>
+<p>You can use the following attributes in the <code>dial</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>actionHook</td>
+<td>webhook to invoke when the call ends.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>answerOnBridge</td>
+<td>If set to true, the inbound call will ring until the number that was dialed answers the call, and at that point a 200 OK will be sent on the inbound leg.  If false, the inbound call will be answered immediately as the outbound call is placed. <br/>Defaults to false.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>callerId</td>
+<td>The inbound caller's phone number, which is displayed to the number that was dialed. The caller ID must be a valid E.164 number. <br/>Defaults to caller id on inbound call.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>confirmHook</td>
+<td>webhook for an application to run on the callee's end after the dialed number answers but before the call is connected. This allows the caller to provide information to the dialed number, giving them the opportunity to decline the call, before they answer the call.  Note that if you want to run different applications on specific destinations, you can specify the 'url' property on the nested <a href="#target-types">target</a> object.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>dialMusic</td>
+<td>url that specifies a .wav or .mp3 audio file of custom audio or ringback to play to the caller while the outbound call is ringing.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>dtmfCapture</td>
+<td>an array of strings that represent dtmf sequence which, when detected, will trigger a mid-call notification to the application via the configured <code>dtmfHook</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td>dtmfHook</td>
+<td>a webhook to call when a dtmfCapture entry is matched.  This is a notification only -- no response is expected, and any desired actions must be carried out via the REST updateCall API.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>headers</td>
+<td>an object containing arbitrary sip headers to apply to the outbound call attempt(s)</td>
+<td>no</td>
+</tr>
+<tr>
+<td>listen</td>
+<td>a nested <a href="#listen">listen</a> action, which will cause audio from the call to be streamed to a remote server over a websocket connection</td>
+<td>no</td>
+</tr>
+<tr>
+<td>target</td>
+<td>array of to 10 <a href="#target-types">destinations</a> to simultaneously dial. The first person (or entity) to answer the call will be connected to the caller and the rest of the called numbers will be hung up.</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>timeLimit</td>
+<td>max length of call in seconds</td>
+<td>no</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>ring no answer timeout, in seconds.  <br/>Defaults to 60.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>transcribe</td>
+<td>a nested <a href="#transcribe">transcribe</a> action, which will cause the call to be transcribed</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h5 id="target-types">target types</h5>
+<p><em>PSTN number</em></p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>must be "phone"</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>confirmHook</td>
+<td>A webhook for an application to run on the callee's end after the dialed number answers but before the call is connected. This will override the confirmHook property set on the parent dial verb, if any.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>number</td>
+<td>a telephone numnber in E.164 number</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p><em>sip endpoint</em></p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>must be "sip"</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>confirmHook</td>
+<td>A webhook for an application to run on the callee's end after the dialed number answers but before the call is connected. This will override the confirmHook property set on the parent dial verb, if any.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>sipUri</td>
+<td>sip uri to send call to</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>auth</td>
+<td>authentication credentials</td>
+<td>no</td>
+</tr>
+<tr>
+<td>auth.user</td>
+<td>sip username</td>
+<td>no</td>
+</tr>
+<tr>
+<td>auth.password</td>
+<td>sip password</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p>Using this approach, it is possible to send calls out a sip trunk.  If the sip trunking provider enforces username/password authentication, supply the credentials in the <code>auth</code> property.</p>
+<p><em>a registered webrtc or sip user</em></p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>must be "user"</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>confirmHook</td>
+<td>A webhook for an application to run on the callee's end after the dialed number answers but before the call is connected. This will override the confirmHook property set on the parent dial verb, if any.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>name</td>
+<td>registered sip user, including domain (e.g. "joeb@sip.jambonz.org")</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<!--
+*Microsoft Teams user*
+
+If Microsoft Teams integration has been configured, you can dial out to  Teams users.
+
+| option        | description | required  |
+| ------------- |-------------| -----|
+| type | must be "ms-teams" | yes |
+| tenant | Microsoft Teams customer tenant domain name| yes |
+| user | the username or phone number of the teams user | yes |
+| voicemail | if true, dial directly into user's voicemail to leave a message | no |
+
+*parking slot*
+
+> Not yet implemented
+
+| option        | description | required  |
+| ------------- |-------------| -----|
+| type | must be "park" | yes |
+| slot | the name of the parking slot | yes |
+
+Dialing to a parking slot allows you to pick up a call that has been parked in that slot.  If the slot is empty, the `dial` verb will return immediate failure.
+-->
+
+<p>The <code>confirmHook</code> property that can be optionally specified as part of the target types (with the exception of the <code>park</code> type) is a web callback that will be invoked when the outdial call is answered.  That callback should return an application that will run on the outbound call before bridging it to the inbound call.  If the application completes with the outbound call still in a stable/connected state, then the two calls will be bridged together.</p>
+<p>This allows you to easily implement call screening applications (e.g. "You have a call from so-and-so.  Press 1 to decline").</p>
+<h2 id="enqueue">enqueue</h2>
+<p>The <code>enqueue</code> command is used to place a caller in a queue.</p>
+<pre><code>{
+    &quot;verb&quot;: &quot;enqueue&quot;,
+    &quot;name&quot;: &quot;support&quot;,
+    &quot;actionHook&quot;: &quot;/queue-action&quot;,
+    &quot;waitHook&quot;: &quot;/queue-wait&quot;
+}
+</code></pre>
+
+<p>You can use the following options in the <code>enqueue</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>name of the queue</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>actionHook</td>
+<td>A webhook invoke when operation completes. <br/>If a call is dequeued through the <code>leave</code> verb, the webook is immediately invoked. <br/>If the call has been bridged to another party via the <code>dequeue</code> verb, then the webhook is invoked after both parties have disconnected. <br/>If no webhook is provided, execution will continue with the next verb in the current application. <br/>See below for specified request parameters.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>waitHook</td>
+<td>A webhook to invoke while the caller is in queue.  The only allowed verbs in the application returned from this webhook are <code>say</code>, <code>play</code>, <code>pause</code>, and <code>leave</code>, </br>See below for additional request parameters</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p>The <em>actionHook</em> webhook will contain the following additional parameters:</p>
+<ul>
+<li><code>queueSid</code>: the unique identifier for the queue</li>
+<li><code>queueResult</code>: the completion reason:<ul>
+<li>'hangup' - the call was abandoned while in queue</li>
+<li>'leave' - a <code>leave</code> verb caused the call to exit the queue</li>
+<li>'bridged' - a <code>dequeue</code> verb caused the call to be bridged to another call</li>
+<li>'error' - a system error of some kind occurred</li>
+</ul>
+</li>
+<li><code>queueTime</code> - the number of seconds the call spent in queue</li>
+</ul>
+<p>The <em>waitHook</em> webhook will contain the following additional parameters:</p>
+<ul>
+<li><code>queueSid</code>: the unique identifier for the queue</li>
+<li><code>queuePosition</code>: the current zero-based position in the queue</li>
+<li><code>queueTime</code>: the current number of seconds the call has spent in queue</li>
+<li><code>queueSize</code>: the current number of calls in the queue</li>
+</ul>
+<h2 id="gather">gather</h2>
+<p>The <code>gather</code> command is used to collect dtmf or speech input.</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;gather&quot;,
+  &quot;actionHook&quot;: &quot;http://example.com/collect&quot;,
+  &quot;input&quot;: [&quot;digits&quot;, &quot;speech&quot;],
+  &quot;finishOnKey&quot;: &quot;#&quot;,
+  &quot;numDigits&quot;: 5,
+  &quot;timeout&quot;: 8,
+  &quot;recognizer&quot;: {
+    &quot;vendor&quot;: &quot;google&quot;,
+    &quot;language&quot;: &quot;en-US&quot;
+  },
+  &quot;say&quot;: {
+    &quot;text&quot;: &quot;To speak to Sales press 1.  To speak to customer support press 2.&quot;,
+    &quot;synthesizer&quot;: {
+      &quot;vendor&quot;: &quot;google&quot;,
+      &quot;language&quot;: &quot;en-US&quot;
+    }
+  }
+}
+</code></pre>
+
+<p>You can use the following options in the <code>gather</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>actionHook</td>
+<td>webhook POST to invoke with the collected digits or speech. The payload will include a 'speech' or 'dtmf' property along with the standard attributes.  See below for more detail.</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>finishOnKey</td>
+<td>dmtf key that signals the end of input</td>
+<td>no</td>
+</tr>
+<tr>
+<td>input</td>
+<td>array, specifying allowed types of input: ['digits'], ['speech'], or ['digits', 'speech'].  Default: ['digits']</td>
+<td>no</td>
+</tr>
+<tr>
+<td>numDigits</td>
+<td>number of dtmf digits expected to gather</td>
+<td>no</td>
+</tr>
+<tr>
+<td>partialResultHook</td>
+<td>webhook to send interim transcription results to. Partial transcriptions are only generated if this property is set.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>play</td>
+<td>nested <a href="#play">play</a> command that can be used to prompt the user</td>
+<td>no</td>
+</tr>
+<tr>
+<td>recognizer.hints</td>
+<td>array of words or phrases to assist speech detection</td>
+<td>no</td>
+</tr>
+<tr>
+<td>recognizer.language</td>
+<td>language code to use for speech detection.  Defaults to the application level setting, or 'en-US' if not set</td>
+<td>no</td>
+</tr>
+<tr>
+<td>recognizer.profanityFilter</td>
+<td>if true, filter profanity from speech transcription.  Default:  no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>recognizer.vendor</td>
+<td>speech vendor to use (currently only google supported)</td>
+<td>no</td>
+</tr>
+<tr>
+<td>say</td>
+<td>nested <a href="#say">say</a> command that can be used to prompt the user</td>
+<td>no</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>The number of seconds of silence or inaction that denote the end of caller input.  The timeout timer will begin after any nested play or say command completes.  Defaults to 5</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p>In the case of speech input, the actionHook payload will include a <code>speech</code> object with the response from google speech:</p>
+<pre><code>&quot;speech&quot;: {
+            &quot;stability&quot;: 0,
+            &quot;is_final&quot;: true,
+            &quot;alternatives&quot;: [{
+                &quot;confidence&quot;: 0.858155,
+                &quot;transcript&quot;: &quot;sales please&quot;
+            }]
+        }
+</code></pre>
+
+<p>In the case of digits input, the payload will simple include a <code>digits</code> property indicating the dtmf keys pressed:</p>
+<pre><code>&quot;digits&quot;: &quot;0276&quot;
+</code></pre>
+
+<p><strong>Note</strong>: an HTTP POST will be used for both the <code>action</code> and the <code>partialResultCallback</code> since the body may need to contain nested JSON objects for speech details.</p>
+<p>Note: the <code>partialResultCallback</code> web callback should not return content; any returned content will be discarded.</p>
+<h2 id="hangup">hangup</h2>
+<p>The hangup command terminates the call and ends the application.</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;hangup&quot;,
+  &quot;headers&quot;: {
+    &quot;X-Reason&quot; : &quot;maximum call duration exceeded&quot;
+  }
+}
+</code></pre>
+
+<p>You can use the following options in the <code>hangup</code> action:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>headers</td>
+<td>an object containing SIP headers to include in the BYE request</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h2 id="leave">leave</h2>
+<p>The <code>leave</code> verb transfers a call out of a queue.  The call then returns to the flow of execution following the <a href="#enqueue">enqueue</a> verb that parked the call, or the document returned by that verbs <em>actionHook</em> property, if provided.</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;leave&quot;
+}
+</code></pre>
+
+<p>There are no options for the <code>leave</code> verb.</p>
+<h2 id="listen">listen</h2>
+<p>jambonz does not have a 'record' verb.    This is by design, for data privacy reasons.  </p>
+<blockquote>
+<p><em>Recordings can contain sensitive and confidential information, and such data is never stored at rest in the jambonz core.</em></p>
+</blockquote>
+<p>Instead, jambonz provides the <strong>listen</strong> verb, where an audio stream(s) can be forked and sent in real-time to a customer application for processing.</p>
+<p>The listen verb can also be nested in a <a href="#dial">dial</a> verb, which allows the audio for a call between two parties to be sent to a remote websocket server.</p>
+<p>To utilize the listen verb, the customer must implement a websocket server to receive and process the audio.  The endpoint should be prepared to accept websocket connections with a subprotocol name of 'audio.jambonz.org'.  </p>
+<p>The listen verb includes a <strong>url</strong> property which is the url of the remote websocket server to send the audio to. The url may be an absolute or relative URL. HTTP Basic Authentication can optionally be used to protect the websocket endpoint by using the <strong>wsAuth</strong> property.</p>
+<p>The format of the audio data sent over the websocket is 16-bit PCM encoding, with a user-specified sample rate.  The audio is sent in binary frames over the websocket connection.  </p>
+<p>Additionally, one text frame is sent immediately after the websocket connection is established.  This text frame contains a JSON string with all of the call attributes normally sent on an HTTP request (e.g. callSid, etc), plus <strong>sampleRate</strong> and <strong>mixType</strong> properties describing the audio sample rate and stream(s).  Additional metadata can also be added to this payload using the <strong>metadata</strong> property as described in the table below.  Once the intial text frame containing the metadata has been sent, the remote side should expect to receive only binary frames, containing audio.  The remote side is not expected to send any data back over the websocket.</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;listen&quot;,
+  &quot;url&quot;: &quot;wss://myrecorder.example.com/calls/271314e6-b463-4980-b007-80defc181058:4433&quot;,
+  &quot;mixType&quot; : &quot;stereo&quot;
+}
+</code></pre>
+
+<p>You can use the following options in the <code>listen</code> action:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>actionHook</td>
+<td>webhook to invoke when listen operation ends.  The information will include the duration of the audio stream, and also a 'digits' property if the recording was terminated by a dtmf key.</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>finishOnKey</td>
+<td>The set of digits that can end the listen action</td>
+<td>no</td>
+</tr>
+<tr>
+<td>maxLength</td>
+<td>the maximum length of the listened audio stream, in secs</td>
+<td>no</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>arbitrary data to add to the JSON payload sent to the remote server when websocket connection is first connected</td>
+<td>no</td>
+</tr>
+<tr>
+<td>mixType</td>
+<td>"mono" (send single channel), "stereo" (send dual channel of both calls in a bridge), or "mixed" (send audio from both calls in a bridge in a single mixed audio stream) Default: mono</td>
+<td>no</td>
+</tr>
+<tr>
+<td>playBeep</td>
+<td>true, false whether to play a beep at the start of the listen operation.  Default: false</td>
+<td>no</td>
+</tr>
+<tr>
+<td>sampleRate</td>
+<td>sample rate of audio to send (allowable values: 8000, 16000, 24000, 48000, or 64000).  Default: 8000</td>
+<td>no</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>the number of seconds of silence that terminates the listen operation.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>transcribe</td>
+<td>a nested <a href="#transcribe">transcribe</a> verb</td>
+<td>no</td>
+</tr>
+<tr>
+<td>url</td>
+<td>url of remote server to connect to</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>wsAuth.username</td>
+<td>HTTP basic auth username to use on websocket connection</td>
+<td>no</td>
+</tr>
+<tr>
+<td>wsAuth.password</td>
+<td>HTTP basic auth password to use on websocket connection</td>
+<td>no</td>
+</tr>
+<tr>
+<td>&lt;!--</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## park</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Not yet implemented</p>
+</blockquote>
+<p>The <code>park</code> command is used to park a call at a named parking slot.  Once a call is parked, it can be picked up by another call using the <code>dial</code> verb with a target type of 'park'.  The park verb completes when one of the following happens:</p>
+<ul>
+<li>It is picked up by another caller, using the dial verb (and that call subsequently completes).</li>
+<li>It leaves the parking slot due to executing a <a href="#leave">leave</a> verb.</li>
+<li>It leaves the parking slot due to a timeout.</li>
+<li>The caller hangs up.</li>
+</ul>
+<p>Once the park command completes, it optionally calls a configured <code>actionHook</code> property (unless the caller has hung up) and executes the application returned, if any.  If no action is specified, it proceeds to execute the next task in the current application.</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;park&quot;,
+  &quot;slot&quot;: &quot;7000&quot;,
+  &quot;actionHook&quot;: &quot;/unparked&quot;,
+  &quot;waitHook&quot;: &quot;/while-parked&quot;,
+  &quot;timeout&quot;: 60
+}
+</code></pre>
+
+<p>You can use the following options in the <code>park</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>actionHook</td>
+<td>a webhook that is invoked when the call leaves the parking slot.  If the call has been bridged to another party, the webhook is invoked when that call is complete. See below for request parameters</td>
+<td>no</td>
+</tr>
+<tr>
+<td>slot</td>
+<td>a label for the parking location</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>number of seconds to wait for pickup before exiting the parking slot</td>
+<td>no</td>
+</tr>
+<tr>
+<td>waitHook</td>
+<td>a webhook to call for verbs to execute while parked.  The returned task list may only include play, say, or gather verbs.  Once the task list is completed, the webhook will be called again repeatedly while the call is parked</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>actionHook</code> request includes the standard request parameters, plus the following:</p>
+<table>
+<thead>
+<tr>
+<th>property</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parkOutcome</td>
+<td>the result of the park command, as described below</td>
+</tr>
+<tr>
+<td>slot</td>
+<td>the parking slot used</td>
+</tr>
+<tr>
+<td>parkTime</td>
+<td>the number of seconds the call was parked</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>parkOutcome</code> is one of the following:</p>
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>'bridged'</td>
+<td>The parked call was picked up</td>
+</tr>
+<tr>
+<td>'abandoned'</td>
+<td>The call was abandoned in park (i.e. the caller hung up)</td>
+</tr>
+<tr>
+<td>'left'</td>
+<td>the call left the parking slot due to a <a href="#leave">leave</a> command</td>
+</tr>
+<tr>
+<td>'timeout'</td>
+<td>the call left the parking slot due to a timeout</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pause">pause</h2>
+<p>The pause command waits silently for a specified number of seconds.</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;pause&quot;,
+  &quot;length&quot;: 3
+}
+</code></pre>
+
+<p>You can use the following options in the <code>pause</code> action:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>length</td>
+<td>number of seconds to wait before continuing the app</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>--&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="play">play</h2>
+<p>The play command is used to stream recorded audio to a call.</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;play&quot;,
+  &quot;url&quot;: &quot;https://example.com/example.mp3&quot;
+}
+</code></pre>
+
+<p>You can use the following options in the <code>play</code> action:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td>a single url or array of urls (will play in sequence) to a wav or mp3 file</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>loop</td>
+<td>number of times to play the url(s)</td>
+<td>no (default: 1)</td>
+</tr>
+<tr>
+<td>earlyMedia</td>
+<td>if true and the call has not yet been answered, play the audio without answering call.  Defaults to false</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h2 id="redirect">redirect</h2>
+<p>The redirect action is used to transfer control to another JSON document taht is retrieved from the specified url.  All actions after <code>redirect</code> are unreachable and ignored.</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;redirect&quot;,
+  &quot;actionHook&quot;: &quot;/connectToSales&quot;,
+}
+</code></pre>
+
+<p>You can use the following options in the <code>redirect</code> action:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>actionHook</td>
+<td>URL of webhook to retrieve new application from.</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="say">say</h2>
+<p>The say command is used to send synthesized speech to the remote party. The text provided may be either plain text or may use SSML tags.  </p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;say&quot;,
+  &quot;text&quot;: &quot;hi there!&quot;,
+  &quot;synthesizer&quot; : {
+    &quot;vendor&quot;: &quot;google&quot;,
+    &quot;language&quot;: &quot;en-US&quot;
+  }
+}
+</code></pre>
+
+<p>You can use the following options in the <code>say</code> action:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>text</td>
+<td>text to speak; may contain SSML tags</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>synthesizer.vendor</td>
+<td>speech vendor to use: google or aws (polly is also an alias for aws)</td>
+<td>no</td>
+</tr>
+<tr>
+<td>synthesizer.language</td>
+<td>language code to use.</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>synthesizer.gender</td>
+<td>(google only) MALE, FEMALE, or NEUTRAL.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>synthesizer.voice</td>
+<td>voice to use.  Note that the voice list differs whether you are using aws or google. Defaults to application setting, if provided.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>loop</td>
+<td>the number of times a text is to be repeated; 0 means repeat forever.  Defaults to 1.</td>
+<td>no</td>
+</tr>
+<tr>
+<td>earlyMedia</td>
+<td>if true and the call has not yet been answered, play the audio without answering call.  Defaults to false</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sipdecline">sip:decline</h2>
+<p>The sip:decline action is used to reject an incoming call with a specific status and, optionally, a reason and SIP headers to include on the response.  </p>
+<p>This action must be the first and only action returned in the JSON payload for an incoming call.  </p>
+<p>The sip:decline action is a non-blocking action and the session ends immediately after the action is executed.</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;sip:decline&quot;,
+  &quot;status&quot;: 480,
+  &quot;reason&quot;: &quot;Gone Fishing&quot;,
+  &quot;headers&quot; : {
+    &quot;Retry-After&quot;: 1800
+  }
+}
+</code></pre>
+
+<p>You can use the following options in the <code>sip:decline</code> action:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>status</td>
+<td>a valid SIP status code in the range 4XX - 6XX</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>reason</td>
+<td>a brief description</td>
+<td>no (default: the well-known SIP reasons associated with the specified status code</td>
+</tr>
+<tr>
+<td>headers</td>
+<td>SIP headers to include in the response</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<!--
+## sip:notify
+
+The sip:notify action is used to a SIP NOTIFY request to one or more registered users.  The sip:notify action is a non-blocking action.
+
+
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;sip:notify&quot;,
+  &quot;user&quot;: [&quot;spike&quot;],
+  &quot;contentType&quot;: &quot;application/simple-message-summary&quot;,
+  &quot;content&quot;: [
+    &quot;Messages-Waiting: yes&quot;,
+    &quot;Message-Account: sip:spike@sip.example.com&quot;,
+    &quot;Voice-Message: 2/8 (0/2)&quot;
+  ],
+  &quot;headers&quot;: {
+    &quot;Subscription-State&quot;: &quot;active&quot;
+  }
+}
+</code></pre>
+
+
+You can use the following options in the `sip:notify` action:
+
+| option        | description | required  |
+| ------------- |-------------| -----|
+| user | user, or array of users, to send NOTIFY requests to | yes |
+| contentType | value of SIP Content-Type header in NOTIFY | yes |
+| content | body of NOTIFY request | yes |
+| headers | object specifying arbitrary headers to apply to SIP NOTIFY request | no
+
+> **Note**: the sip:notify verb is not currently implemented.
+
+## sip:redirect
+
+The sip:redirect command is used to redirect an incoming call to another sip server or network.  This must be the first and only command returned in the web callback for an incoming call.  A SIP 302 Moved response will be sent back to the caller.  
+
+The sip:redirect command is a non-blocking and the session ends immediately after the command is executed.
+
+
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;sip:redirect&quot;,
+  &quot;sipUri&quot;: &quot;sip:123@gateway.example.com&quot;
+}
+</code></pre>
+
+
+You can use the following options in the `sip:decline` command:
+
+| option        | description | required  |
+| ------------- |-------------| -----|
+| sipUri | a sip uri that will appear in the Contact header of the 302 response to the caller | yes |
+
+> **Note**: the sip:redirect verb is not currently implemented.
+-->
+
+<h2 id="tag">tag</h2>
+<p>The tag verb is used to add properties to the standard call attributes that jambonz includes on every action or call status HTTP POST request.</p>
+<blockquote>
+<p>Note: because of the possible richness of the data, only subsequent POST requests will include this data.  It will not be included in HTTP GET requests.</p>
+</blockquote>
+<p>The purpose is to simplify applications by eliminating the need to store state information if it can simply be echoed back to the application on each HTTP request for the call.</p>
+<p>For example, consider an application that wishes to apply some privacy settings on outdials based on attributes in the initial incoming call.  The application could parse information from the SIP INVITE provided in the web callback when the call arrives, and rather than having to store that information for later use it could simply use the 'tag' verb to associate that information with the call.  Later, when an action or call status triggers the need for the application to outdial it can simply access the information from the HTTP POST body, rather than having to retrieve it from the cache of some sort.</p>
+<p>Note that every time the tag verb is used, the collection of customer data is completely replaced with the new data provided.  This information will be provided back in all action or status notifications if POST method is used.  It will appear in property named 'customerData' in the JSON payload. </p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;tag&quot;,
+  &quot;data&quot; {
+        &quot;foo&quot;: &quot;bar&quot;,
+        &quot;counter&quot;: 100,
+        &quot;list&quot;: [1, 2, &quot;three&quot;]
+    }
+}
+</code></pre>
+
+<p>After the above 'tag' verb has executed, web callbacks using POST would have a payload similar to this:</p>
+<pre><code>{
+    &quot;callSid&quot;: &quot;df09e8d4-7ffd-492b-94d9-51a60318552c&quot;,
+    &quot;direction&quot;: &quot;inbound&quot;,
+    &quot;from&quot;: &quot;+15083084809&quot;,
+    &quot;to&quot;: &quot;+15083728299&quot;,
+    &quot;callId&quot;: &quot;f0414693-bdb6-1238-6185-06d91d68c9b0&quot;,
+    &quot;sipStatus&quot;: 200,
+    &quot;callStatus&quot;: &quot;in-progress&quot;,
+    &quot;callerId&quot;: &quot;f0414693-bdb6-1238-6185-06d91d68c9b0&quot;,
+    &quot;accountSid&quot;: &quot;fef61e75-cec3-496c-a7bc-8368e4d02a04&quot;,
+    &quot;applicationSid&quot;: &quot;0e0681b0-d49f-4fb8-b973-b5a3c6758de1&quot;,
+    &quot;originatingSipIp&quot;: &quot;54.172.60.1:5060&quot;,
+    &quot;originatingSipTrunkName&quot;: &quot;twilio&quot;,
+    &quot;customerData&quot;: {
+        &quot;foo&quot;: &quot;bar&quot;,
+        &quot;counter&quot;: 100,
+        &quot;list&quot;: [1, 2, &quot;three&quot;]
+    }
+}
+</code></pre>
+
+<p>You can use the following options in the <code>tag</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>a JSON object containing values to be saved and included in future action or call status notifications (HTTP POST only) for this call</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transcribe">transcribe</h2>
+<p>The transcribe verb is used to send real time transcriptions of speech to a web callback.</p>
+<p>The transcribe command is only allowed as a nested verb within a dial or listen verb.  Using transcribe in a dial command allows a long-running transcription of a phone call to be made, while nesting within a listen verb allows transcriptions of recorded messages (e.g. voicemail).</p>
+<pre><code class="json">{
+  &quot;verb&quot;: &quot;transcribe&quot;,
+  &quot;transcriptionHook&quot;: &quot;http://example.com/transcribe&quot;,
+  &quot;recognizer&quot;: {
+    &quot;vendor&quot;: &quot;google&quot;,
+    &quot;language&quot; : &quot;en-US&quot;,
+    &quot;interim&quot;: true
+  }
+}
+</code></pre>
+
+<p>You can use the following options in the <code>transcribe</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>description</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>recognizer.dualChannel</td>
+<td>if true, transcribe the parent call as well as the child call</td>
+<td>no</td>
+</tr>
+<tr>
+<td>recognizer.interim</td>
+<td>if true interim transcriptions are sent</td>
+<td>no (default: false)</td>
+</tr>
+<tr>
+<td>recognizer.language</td>
+<td>language to use for speech transcription</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>recognizer.profanityFilter</td>
+<td>if true, filter profanity from speech transcription.  Default:  no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>recognizer.vendor</td>
+<td>speech vendor to use (currently only google supported)</td>
+<td>no</td>
+</tr>
+<tr>
+<td>transcriptionHook</td>
+<td>webhook to call when a transcription is received. Due to the richness of information in the transcription an HTTP POST will always be sent.</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: the <code>dualChannel</code> property is not currently implemented.</p>
+</blockquote>
+<h1 id="example-messages">Example messages</h1>
+<p>An example JSON payload for a webhook for an incoming call using a POST method. There's a lot of detail here, because when you specify to receive a POST you are getting the full SIP INVITE.</p>
+<pre><code>{
+    &quot;direction&quot;: &quot;inbound&quot;,
+    &quot;callSid&quot;: &quot;1fe62f7c-ebb9-4b96-b75b-7d04ff2b195d&quot;,
+    &quot;accountSid&quot;: &quot;fef61e75-cec3-496c-a7bc-8368e4d02a04&quot;,
+    &quot;applicationSid&quot;: &quot;0e0681b0-d49f-4fb8-b973-b5a3c6758de1&quot;,
+    &quot;from&quot;: &quot;+15083084809&quot;,
+    &quot;to&quot;: &quot;+15083728299&quot;,
+    &quot;callerName&quot;: &quot;+15083084809&quot;,
+    &quot;callId&quot;: &quot;252a93d3-bdb2-1238-6185-06d91d68c9b0&quot;,
+    &quot;sipStatus&quot;: 100,
+    &quot;callStatus&quot;: &quot;trying&quot;,
+    &quot;originatingSipIp&quot;: &quot;54.172.60.2:5060&quot;,
+    &quot;originatingSipTrunkName&quot;: &quot;twilio&quot;,
+    &quot;sip&quot;: {
+        &quot;headers&quot;: {
+            &quot;via&quot;: &quot;SIP/2.0/UDP 3.10.235.99;rport=5060;branch=z9hG4bKgeBy6Fg863Z8N;received=172.31.3.33&quot;,
+            &quot;max-forwards&quot;: &quot;70&quot;,
+            &quot;from&quot;: &quot;&lt;sip:+15083084809@3.10.235.99:5060&gt;;tag=vQXQ3g5papXpF&quot;,
+            &quot;to&quot;: &quot;&lt;sip:+15083728299@172.31.3.33:5070&gt;&quot;,
+            &quot;call-id&quot;: &quot;252a93d3-bdb2-1238-6185-06d91d68c9b0&quot;,
+            &quot;cseq&quot;: &quot;15623387 INVITE&quot;,
+            &quot;contact&quot;: &quot;&lt;sip:+15083084809@3.10.235.99:5060&gt;&quot;,
+            &quot;user-agent&quot;: &quot;Twilio Gateway&quot;,
+            &quot;allow&quot;: &quot;INVITE, ACK, CANCEL, BYE, REFER, NOTIFY, OPTIONS&quot;,
+            &quot;content-type&quot;: &quot;application/sdp&quot;,
+            &quot;content-length&quot;: &quot;264&quot;,
+            &quot;X-CID&quot;: &quot;f9221ea5e66a1d1f10a0b556933dc0c2@0.0.0.0&quot;,
+            &quot;X-Forwarded-For&quot;: &quot;54.172.60.2:5060&quot;,
+            &quot;X-Originating-Carrier&quot;: &quot;twilio&quot;,
+            &quot;Diversion&quot;: &quot;&lt;sip:+15083728299@public-vip.us1.twilio.com&gt;;reason=unconditional&quot;
+        },
+        &quot;body&quot;: &quot;v=0\r\no=root 1999455157 1999455157 IN IP4 3.10.235.99\r\ns=Twilio Media Gateway\r\nc=IN IP4 3.10.235.99\r\nt=0 0\r\nm=audio 49764 RTP/AVP 0 101\r\na=maxptime:150\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-16\r\na=sendrecv\r\na=rtcp:49765\r\na=ptime:20\r\n&quot;,
+        &quot;payload&quot;: [{
+            &quot;type&quot;: &quot;application/sdp&quot;,
+            &quot;content&quot;: &quot;v=0\r\no=root 1999455157 1999455157 IN IP4 3.10.235.99\r\ns=Twilio Media Gateway\r\nc=IN IP4 3.10.235.99\r\nt=0 0\r\nm=audio 49764 RTP/AVP 0 101\r\na=maxptime:150\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-16\r\na=sendrecv\r\na=rtcp:49765\r\na=ptime:20\r\n&quot;
+        }],
+        &quot;method&quot;: &quot;INVITE&quot;,
+        &quot;version&quot;: &quot;2.0&quot;,
+        &quot;uri&quot;: &quot;sip:+15083728299@172.31.3.33:5070&quot;,
+        &quot;raw&quot;: &quot;INVITE sip:+15083728299@172.31.3.33:5070 SIP/2.0\r\nVia: SIP/2.0/UDP 3.10.235.99;rport=5060;branch=z9hG4bKgeBy6Fg863Z8N;received=172.31.3.33\r\nMax-Forwards: 70\r\nFrom: &lt;sip:+15083084809@3.10.235.99:5060&gt;;tag=vQXQ3g5papXpF\r\nTo: &lt;sip:+15083728299@172.31.3.33:5070&gt;\r\nCall-ID: 252a93d3-bdb2-1238-6185-06d91d68c9b0\r\nCSeq: 15623387 INVITE\r\nContact: &lt;sip:+15083084809@3.10.235.99:5060&gt;\r\nUser-Agent: Twilio Gateway\r\nAllow: INVITE, ACK, CANCEL, BYE, REFER, NOTIFY, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 264\r\nX-CID: f9221ea5e66a1d1f10a0b556933dc0c2@0.0.0.0\r\nX-Forwarded-For: 54.172.60.2:5060\r\nX-Originating-Carrier: twilio\r\nDiversion: &lt;sip:+15083728299@public-vip.us1.twilio.com&gt;;reason=unconditional\r\nX-Twilio-AccountSid: AC58f23d38858ac262d6ee2e554b30c561\r\nX-Twilio-CallSid: CA708d85d118aacfcc794b730fa02bc40c\r\n\r\nv=0\r\no=root 1999455157 1999455157 IN IP4 3.10.235.99\r\ns=Twilio Media Gateway\r\nc=IN IP4 3.10.235.99\r\nt=0 0\r\nm=audio 49764 RTP/AVP 0 101\r\na=maxptime:150\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-16\r\na=sendrecv\r\na=rtcp:49765\r\na=ptime:20\r\n&quot;
+    }
+}
+</code></pre>
+
+<p>An example JSON payload for a call status webhook for an incoming call using a POST method:</p>
+<pre><code> {
+    &quot;direction&quot;: &quot;inbound&quot;,
+    &quot;callSid&quot;: &quot;1fe62f7c-ebb9-4b96-b75b-7d04ff2b195d&quot;,
+    &quot;accountSid&quot;: &quot;fef61e75-cec3-496c-a7bc-8368e4d02a04&quot;,
+    &quot;applicationSid&quot;: &quot;0e0681b0-d49f-4fb8-b973-b5a3c6758de1&quot;,
+    &quot;from&quot;: &quot;+15083084809&quot;,
+    &quot;to&quot;: &quot;+15083728299&quot;,
+    &quot;callerName&quot;: &quot;+15083084809&quot;,
+    &quot;callId&quot;: &quot;252a93d3-bdb2-1238-6185-06d91d68c9b0&quot;,
+    &quot;sipStatus&quot;: 200,
+    &quot;callStatus&quot;: &quot;in-progress&quot;,
+    &quot;originatingSipIp&quot;: &quot;54.172.60.2:5060&quot;,
+    &quot;originatingSipTrunkName&quot;: &quot;twilio&quot;
+ }
+</code></pre>
+
+<p>An example JSON payload for a call status webhook for an outbound call using a POST method:</p>
+<pre><code>{
+    &quot;direction&quot;: &quot;outbound&quot;,
+    &quot;callSid&quot;: &quot;ddd6d4b2-ba3f-42fb-9845-8abdac047097&quot;,
+    &quot;parentCallSid&quot;: &quot;1fe62f7c-ebb9-4b96-b75b-7d04ff2b195d&quot;,
+    &quot;accountSid&quot;: &quot;fef61e75-cec3-496c-a7bc-8368e4d02a04&quot;,
+    &quot;applicationSid&quot;: &quot;0e0681b0-d49f-4fb8-b973-b5a3c6758de1&quot;,
+    &quot;from&quot;: &quot;+15083084809&quot;,
+    &quot;to&quot;: &quot;+15084901000&quot;,
+    &quot;callerName&quot;: &quot;+15083084809&quot;,
+    &quot;callId&quot;: &quot;a5726393-bdaf-1238-9483-06d91d68c9b0&quot;,
+    &quot;callStatus&quot;: &quot;in-progress&quot;,
+    &quot;sipStatus&quot;: 200
+}
+</code></pre></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <hr>
+        <p>
+        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+        </p>
+
+        
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+    
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
